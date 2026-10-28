@@ -168,9 +168,10 @@ def get_geodata(mode='Countries'):
             categories[asn if asn else 'Unknown'].append(ip_addr)
 
         elif mode == 'Organizations':
+            asn_info = ip_info.get('asn')
             org_name = (
                 ip_info.get('org')
-                or ip_info.get('asn', {}).get('org')
+                or (asn_info.get('org') if isinstance(asn_info, dict) else None)
             )
 
             if not org_name and ip_info.get('as'):
